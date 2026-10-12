@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basket Random</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body {
+      background: #090d16;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .wrapper {
+      position: relative;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 10px 20px;
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+    }
+    .score-board {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 26px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+    .p1-score { color: #38bdf8; }
+    .p2-score { color: #f43f5e; }
+    .mode-btn {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .mode-btn.active {
+      background: #0284c7;
+      color: #fff;
+      border-color: #0284c7;
+    }
+    canvas {
+      display: block;
+      background: #111827;
+    }
+    .hint {
+      margin-top: 10px;
+      color: #64748b;
+      font-size: 12px;
+      display: flex;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="header-bar">
+      <div style="display:flex; gap:8px;">
+        <button id="btn1P" class="mode-btn active">1 Player (vs CPU)</button>
+        <button id="btn2P" class="mode-btn">2 Players</button>
+      </div>
+
+      <div class="score-board">
+        <span class="p1-score" id="score1">0</span>
+        <span style="color:#475569; font-size:18px;">VS</span>
+        <span class="p2-score" id="score2">0</span>
+      </div>
+
+      <button id="btnRestart" class="mode-btn">Restart</button>
+    </div>
+
+    <canvas id="gameCanvas" width="680" height="420"></canvas>
+  </div>
+
+  <div class="hint">
+    <span>Player 1: <strong>[W]</strong> or Click to Jump & Shoot</span>
+    <span>Player 2: <strong>[↑] (Up Arrow)</strong> to Jump & Shoot</span>
+  </div>
+
+  <script>
+    // Audio synthesizer
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let actx = null;
+    function playSfx(freq, dur = 0.08, type = 'sine') {
+      try {
+        if (!actx) actx = new AudioCtx();
+        if (actx.state === 'suspended') actx.resume();
+        const osc = actx.createOscillator();
+        const gain = actx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, actx.currentTime);
+        gain.gain.setValueAtTime(0.08, actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(actx.destination);
+        osc.start();
+        osc.stop(actx.currentTime + dur);
+      } catch(e) {}
+    }
+
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const score1El = document.getElementById('score1');
+    const score2El = document.getElementById('score2');
+
+    let mode = '1P'; // '1P' | '2P'
+    let score1 = 0;
+    let score2 = 0;
+    let winner = null;
+    let roundTransition = false;
+    let roundText = '';
+
+    const GROUND_Y = 360;
+
+    // Environmental themes
+    const THEMES = [
+      { name: "Gym Court", bg: "#0f172a", floor: "#b45309", hoop: "#ea580c" },
+      { name: "Winter Snow", bg: "#082f49", floor: "#e2e8f0", hoop: "#0284c7" },
+      { name: "Rooftop Sunset", bg: "#4c0519", floor: "#334155", hoop: "#f43f5e" },
+      { name: "Cyber Neon", bg: "#022c22", floor: "#059669", hoop: "#10b981" }
+    ];
+    let currentTheme = THEMES[0];
+
+    // Ball types
+    const BALL_TYPES = [
+      { r: 12, bounciness: 0.75, color: "#f97316", gravity: 0.28 },
+      { r: 18, bounciness: 0.60, color: "#eab308", gravity: 0.32 },
+      { r: 8,  bounciness: 0.88, color: "#22c55e", gravity: 0.22 }
+    ];
+    let currentBallType = BALL_TYPES[0];
+
+    // Ragdoll Player Model
+    class RagdollPlayer {
+      constructor(x, team, isDefender) {
+        this.startX = x;
+        this.team = team; // 1 = Blue/Cyan, 2 = Red/Pink
+        this.isDefender = isDefender;
+        this.reset();
+      }
+
+      reset() {
+        this.x = this.startX;
+        this.y = GROUND_Y - 50;
+        this.vx = 0;
+        this.vy = 0;
+        this.armAngle = this.team === 1 ? -0.3 : 0.3;
+        this.armSpeed = 0;
+        this.bodyTilt = 0;
+        this.isGrounded = true;
+        this.armLength = 26 + (Math.random() * 12 - 6);
+      }
+
+      jump() {
+        if (this.isGrounded) {
+          const power = -7.5 - Math.random() * 2.5;
+          const forward = this.team === 1 ? (1.5 + Math.random() * 2) : (-1.5 - Math.random() * 2);
+          this.vy = power;
+          this.vx = forward;
+          this.bodyTilt = (this.team === 1 ? 0.3 : -0.3);
+          this.armSpeed = (this.team === 1 ? 0.25 : -0.25);
+          this.isGrounded = false;
+          playSfx(this.team === 1 ? 400 : 340, 0.05, 'triangle');
+        }
+      }
+
+      update() {
+        this.vy += 0.3; // Gravity
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Ground collision
+        if (this.y >= GROUND_Y - 50) {
+          this.y = GROUND_Y - 50;
+          this.vy = 0;
+          this.vx *= 0.65; // Friction
+          this.bodyTilt *= 0.7;
+          this.isGrounded = true;
+        }
+
+        // Arm pendulum motion
+        this.armAngle += this.armSpeed;
+        this.armSpeed *= 0.92;
+        const targetAngle = this.team === 1 ? -0.2 : 0.2;
+        this.armAngle += (targetAngle - this.armAngle) * 0.05;
+
+        // Arena boundary walls
+        if (this.x < 50) { this.x = 50; this.vx = 0; }
+        if (this.x > canvas.width - 50) { this.x = canvas.width - 50; this.vx = 0; }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.bodyTilt);
+
+        const color = this.team === 1 ? '#38bdf8' : '#f43f5e';
+        const headColor = '#fed7aa';
+
+        // Head
+        ctx.fillStyle = headColor;
+        ctx.beginPath();
+        ctx.arc(0, -20, 11, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Jersey Body
+        ctx.fillStyle = color;
+        ctx.fillRect(-8, -10, 16, 28);
+
+        // Legs
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(-4, 18);
+        ctx.lineTo(-6, 36);
+        ctx.moveTo(4, 18);
+        ctx.lineTo(6, 36);
+        ctx.stroke();
+
+        // Arm
+        ctx.save();
+        ctx.translate(0, -4);
+        ctx.rotate(this.armAngle);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(this.armLength * (this.team === 1 ? 1 : -1), -6);
+        ctx.stroke();
+
+        // Hand
+        ctx.fillStyle = headColor;
+        ctx.beginPath();
+        ctx.arc(this.armLength * (this.team === 1 ? 1 : -1), -6, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        ctx.restore();
+      }
+
+      getHandPos() {
+        const dir = this.team === 1 ? 1 : -1;
+        const handLocalX = Math.cos(this.armAngle) * (this.armLength * dir);
+        const handLocalY = Math.sin(this.armAngle) * (this.armLength * dir) - 4;
+        return {
+          x: this.x + handLocalX,
+          y: this.y + handLocalY
+        };
+      }
+    }
+
+    // Two hoops
+    const hoopLeft = { x: 50, y: 190, r: 20 };
+    const hoopRight = { x: canvas.width - 50, y: 190, r: 20 };
+
+    // Players
+    let players = [
+      new RagdollPlayer(160, 1, false), // Team 1 Dunker
+      new RagdollPlayer(90,  1, true),  // Team 1 Defender
+      new RagdollPlayer(520, 2, false), // Team 2 Dunker
+      new RagdollPlayer(590, 2, true)   // Team 2 Defender
+    ];
+
+    // Ball
+    let ball = {
+      x: canvas.width / 2,
+      y: 120,
+      vx: 0,
+      vy: 0
+    };
+
+    function resetRound(scoredTeam = null) {
+      currentTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
+      currentBallType = BALL_TYPES[Math.floor(Math.random() * BALL_TYPES.length)];
+
+      players.forEach(p => p.reset());
+      ball.x = canvas.width / 2 + (Math.random() * 40 - 20);
+      ball.y = 120;
+      ball.vx = (Math.random() * 2 - 1);
+      ball.vy = -1;
+
+      if (scoredTeam) {
+        roundTransition = true;
+        roundText = `Team ${scoredTeam === 1 ? 'Cyan' : 'Red'} Scored!`;
+        setTimeout(() => { roundTransition = false; }, 1200);
+      }
+    }
+
+    function checkHoopScore() {
+      // Ball in Left Hoop -> Team 2 scores
+      const dl = Math.hypot(ball.x - hoopLeft.x, ball.y - hoopLeft.y);
+      if (dl < hoopLeft.r + 4 && ball.vy > 0.5) {
+        score2++;
+        score2El.innerText = score2;
+        playSfx(650, 0.25, 'square');
+        if (score2 >= 5) winner = 'Team Red';
+        resetRound(2);
+      }
+
+      // Ball in Right Hoop -> Team 1 scores
+      const dr = Math.hypot(ball.x - hoopRight.x, ball.y - hoopRight.y);
+      if (dr < hoopRight.r + 4 && ball.vy > 0.5) {
+        score1++;
+        score1El.innerText = score1;
+        playSfx(750, 0.25, 'square');
+        if (score1 >= 5) winner = 'Team Cyan';
+        resetRound(1);
+      }
+    }
+
+    function update() {
+      if (winner) return;
+
+      // Update players
+      players.forEach(p => p.update());
+
+      // AI controls for Team 2 (when in 1P mode)
+      if (mode === '1P') {
+        const botDunker = players[2];
+        const botDefender = players[3];
+        // Jump when ball is near or high
+        if (Math.abs(ball.x - botDunker.x) < 140 && Math.random() < 0.04) {
+          botDunker.jump();
+        }
+        if (Math.abs(ball.x - hoopRight.x) < 180 && Math.random() < 0.035) {
+          botDefender.jump();
+        }
+      }
+
+      // Ball physics
+      ball.vy += currentBallType.gravity;
+      ball.x += ball.vx;
+      ball.y += ball.vy;
+
+      // Floor bounce
+      if (ball.y >= GROUND_Y - currentBallType.r) {
+        ball.y = GROUND_Y - currentBallType.r;
+        ball.vy = -ball.vy * currentBallType.bounciness;
+        ball.vx *= 0.95;
+        if (Math.abs(ball.vy) > 1) playSfx(220, 0.03);
+      }
+
+      // Wall bounce
+      if (ball.x <= currentBallType.r) {
+        ball.x = currentBallType.r;
+        ball.vx = -ball.vx * 0.7;
+      }
+      if (ball.x >= canvas.width - currentBallType.r) {
+        ball.x = canvas.width - currentBallType.r;
+        ball.vx = -ball.vx * 0.7;
+      }
+
+      // Check player hand/body collisions
+      players.forEach(p => {
+        // Body bump
+        const distBody = Math.hypot(ball.x - p.x, ball.y - (p.y - 10));
+        if (distBody < currentBallType.r + 18) {
+          const pushX = ball.x > p.x ? 2.5 : -2.5;
+          ball.vx = pushX + p.vx * 0.8;
+          ball.vy = -3.5 + p.vy * 0.5;
+        }
+
+        // Arm / Hand slap
+        const hand = p.getHandPos();
+        const distHand = Math.hypot(ball.x - hand.x, ball.y - hand.y);
+        if (distHand < currentBallType.r + 14) {
+          const launchDir = p.team === 1 ? 1 : -1;
+          ball.vx = launchDir * (4.5 + Math.random() * 3);
+          ball.vy = -6.5 - Math.random() * 2;
+          playSfx(500, 0.08, 'triangle');
+        }
+      });
+
+      checkHoopScore();
+    }
+
+    function draw() {
+      // Background
+      ctx.fillStyle = currentTheme.bg;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Court Floor
+      ctx.fillStyle = currentTheme.floor;
+      ctx.fillRect(0, GROUND_Y, canvas.width, canvas.height - GROUND_Y);
+
+      // Court Lines
+      ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2, GROUND_Y);
+      ctx.lineTo(canvas.width / 2, canvas.height);
+      ctx.stroke();
+
+      // Backboards & Hoops
+      // Left Backboard
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillRect(20, hoopLeft.y - 45, 6, 70);
+      // Left Rim
+      ctx.strokeStyle = currentTheme.hoop;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(26, hoopLeft.y);
+      ctx.lineTo(hoopLeft.x + hoopLeft.r, hoopLeft.y);
+      ctx.stroke();
+      // Left Net
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(26, hoopLeft.y, hoopLeft.r * 1.2, 16);
+
+      // Right Backboard
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillRect(canvas.width - 26, hoopRight.y - 45, 6, 70);
+      // Right Rim
+      ctx.strokeStyle = currentTheme.hoop;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width - 26, hoopRight.y);
+      ctx.lineTo(hoopRight.x - hoopRight.r, hoopRight.y);
+      ctx.stroke();
+      // Right Net
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(canvas.width - 26 - hoopRight.r * 1.2, hoopRight.y, hoopRight.r * 1.2, 16);
+
+      // Draw players
+      players.forEach(p => p.draw());
+
+      // Draw Ball
+      ctx.fillStyle = currentBallType.color;
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, currentBallType.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ball ribs
+      ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, currentBallType.r, 0, Math.PI);
+      ctx.stroke();
+
+      // Overlays
+      if (roundTransition) {
+        ctx.fillStyle = 'rgba(5, 8, 17, 0.6)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(roundText, canvas.width / 2, canvas.height / 2);
+      }
+
+      if (winner) {
+        ctx.fillStyle = 'rgba(5, 8, 17, 0.85)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = winner === 'Team Cyan' ? '#38bdf8' : '#f43f5e';
+        ctx.font = 'bold 28px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${winner} WINS THE MATCH!`, canvas.width / 2, canvas.height / 2 - 10);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '14px sans-serif';
+        ctx.fillText('Click Restart or press Space to play again', canvas.width / 2, canvas.height / 2 + 22);
+      }
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    // Input handlers
+    function team1Jump() {
+      if (winner) return;
+      players[0].jump();
+      players[1].jump();
+    }
+
+    function team2Jump() {
+      if (winner) return;
+      players[2].jump();
+      players[3].jump();
+    }
+
+    window.addEventListener('keydown', e => {
+      if (['w', 'W', 'ArrowUp', ' '].includes(e.key)) e.preventDefault();
+      if (e.key === 'w' || e.key === 'W') team1Jump();
+      if (e.key === 'ArrowUp') {
+        if (mode === '2P') team2Jump();
+        else team1Jump();
+      }
+      if (winner && e.key === ' ') {
+        resetAll();
+      }
+    });
+
+    canvas.addEventListener('click', () => {
+      if (winner) resetAll();
+      else team1Jump();
+    });
+
+    function resetAll() {
+      score1 = 0;
+      score2 = 0;
+      winner = null;
+      score1El.innerText = '0';
+      score2El.innerText = '0';
+      resetRound();
+    }
+
+    document.getElementById('btn1P').onclick = () => {
+      mode = '1P';
+      document.getElementById('btn1P').classList.add('active');
+      document.getElementById('btn2P').classList.remove('active');
+      resetAll();
+    };
+
+    document.getElementById('btn2P').onclick = () => {
+      mode = '2P';
+      document.getElementById('btn2P').classList.add('active');
+      document.getElementById('btn1P').classList.remove('active');
+      resetAll();
+    };
+
+    document.getElementById('btnRestart').onclick = resetAll;
+
+    resetAll();
+    loop();
+  </script>
+</body>
+</html>

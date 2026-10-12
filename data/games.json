@@ -1,5 +1,29 @@
 [
   {
+    "id": "basket-random",
+    "title": "Basket Random",
+    "category": "Sports",
+    "description": "Shoot hoops and enjoy random fun with Basket Random! Compete in fast-paced 1P or 2P matches with randomized courts, balls, and bouncy floppy physics.",
+    "iframeUrl": "./games/basket-random.html",
+    "thumbnail": "https://sites.google.com/u/0/sitesv-images-rt/AMxu72udb7Cbxhtipg8Y4Reo7uXF5iXmoO7QFHIZwDql0IPhYGaPsBYg3-BDRLSbOyDqyDDx_m-hOr8rzWn2ObeNm6ZhZXBRvZhlNEDxdpZzrr2sJiRqv7B6cX9JIakO-tAXMM2jCu6s11g0tUyY3wH2HIp_-mhmUCUEquKQwidXfJsmiNUxmo-9jFOilUM5BF68aVYAfftAY4iZA0AAauR9pZSxxSEOBLhW-1mAyLl-QLI=w1280",
+    "accentColor": "#f59e0b",
+    "instructions": "Jump and swing your arms to launch the ball towards the opposing hoop. First team to score 5 points wins. Every point switches the court and ball type!",
+    "controls": [
+      { "key": "W / Up Arrow", "action": "Player 1 Jump & Shoot" },
+      { "key": "Up Arrow", "action": "Player 2 Jump & Shoot" },
+      { "key": "Click", "action": "Tap / Click Jump" }
+    ],
+    "servers": [
+      { "name": "Server 1 (HTML5 Offline)", "url": "./games/basket-random.html" },
+      { "name": "Server 2 (Classroom 6x Embed)", "url": "https://script.google.com/macros/s/AKfycbwiQgeRHVDP8wzJ_CeSE1LyaKCMu1qdlopwylhD4LdBvBVd2y36VjlWY0iyk38WH0JiJA/exec" },
+      { "name": "Server 3 (Google Script Alt)", "url": "https://script.google.com/macros/s/AKfycbwgLUpgbADEdCFDRp0NnFSr310OUnQMg6zj69o0Tu2UBe_nICkRNiqcBorb5IYBIeLQig/exec" }
+    ],
+    "rating": 4.9,
+    "plays": 128400,
+    "tags": ["Basketball", "Ragdoll", "2 Player", "Physics", "Sports"],
+    "featured": true
+  },
+  {
     "id": "neon-tetris",
     "title": "Neon Tetris",
     "category": "Puzzle",

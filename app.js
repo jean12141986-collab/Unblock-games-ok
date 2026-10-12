@@ -7,6 +7,30 @@
 // Fallback datasets
 const DEFAULT_GAMES = [
   {
+    id: "basket-random",
+    title: "Basket Random",
+    category: "Sports",
+    description: "Shoot hoops and enjoy random fun with Basket Random! Compete in fast-paced 1P or 2P matches with randomized courts, balls, and bouncy floppy ragdoll physics.",
+    iframeUrl: "./games/basket-random.html",
+    thumbnail: "https://sites.google.com/u/0/sitesv-images-rt/AMxu72udb7Cbxhtipg8Y4Reo7uXF5iXmoO7QFHIZwDql0IPhYGaPsBYg3-BDRLSbOyDqyDDx_m-hOr8rzWn2ObeNm6ZhZXBRvZhlNEDxdpZzrr2sJiRqv7B6cX9JIakO-tAXMM2jCu6s11g0tUyY3wH2HIp_-mhmUCUEquKQwidXfJsmiNUxmo-9jFOilUM5BF68aVYAfftAY4iZA0AAauR9pZSxxSEOBLhW-1mAyLl-QLI=w1280",
+    accentColor: "#f59e0b",
+    instructions: "Jump and swing your arms to launch the ball towards the opposing hoop. First team to score 5 points wins. Every point switches the court and ball type!",
+    controls: [
+      { key: "W / Up Arrow", action: "Player 1 Jump & Shoot" },
+      { key: "Up Arrow", action: "Player 2 Jump & Shoot" },
+      { key: "Click", action: "Tap / Click Jump" }
+    ],
+    servers: [
+      { name: "Server 1 (HTML5 Offline)", url: "./games/basket-random.html" },
+      { name: "Server 2 (Classroom 6x Embed)", url: "https://script.google.com/macros/s/AKfycbwiQgeRHVDP8wzJ_CeSE1LyaKCMu1qdlopwylhD4LdBvBVd2y36VjlWY0iyk38WH0JiJA/exec" },
+      { name: "Server 3 (Google Script Alt)", url: "https://script.google.com/macros/s/AKfycbwgLUpgbADEdCFDRp0NnFSr310OUnQMg6zj69o0Tu2UBe_nICkRNiqcBorb5IYBIeLQig/exec" }
+    ],
+    rating: 4.9,
+    plays: 128400,
+    tags: ["Basketball", "Ragdoll", "2 Player", "Physics", "Sports"],
+    featured: true
+  },
+  {
     id: "neon-tetris",
     title: "Neon Tetris",
     category: "Puzzle",
@@ -952,7 +976,7 @@ function renderGamesCatalog() {
     list = list.filter(g => g.title.toLowerCase().includes(q) || g.category.toLowerCase().includes(q) || (g.tags && g.tags.some(t => t.toLowerCase().includes(q))));
   }
 
-  const categories = ['All', 'Arcade', 'Puzzle', 'Action', 'Strategy', 'Classic', 'Casual'];
+  const categories = ['All', 'Sports', 'Arcade', 'Puzzle', 'Action', 'Strategy', 'Classic', 'Casual'];
 
   return `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -1021,6 +1045,7 @@ function renderGamesCatalog() {
 }
 
 function renderGamePlayer(game) {
+  const currentUrl = state.activeServerUrl || game.iframeUrl;
   return `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <div class="flex items-center justify-between">
@@ -1037,10 +1062,12 @@ function renderGamePlayer(game) {
         </div>
       </div>
 
+      <!-- Iframe Container -->
       <div id="mediaPlayerContainer" class="mx-auto bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl relative max-w-4xl w-full">
         <div class="relative aspect-[16/10] sm:aspect-[16/9] w-full min-h-[480px]">
           <iframe
-            src="${game.iframeUrl}"
+            id="streamIframe"
+            src="${currentUrl}"
             title="${game.title}"
             class="w-full h-full border-0 absolute inset-0 bg-slate-950"
             allow="fullscreen; autoplay; gamepad"
@@ -1049,9 +1076,42 @@ function renderGamePlayer(game) {
         </div>
       </div>
 
+      <!-- Servers Switcher (if multiple mirrors configured) -->
+      ${game.servers && game.servers.length > 0 ? `
+        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2 text-xs font-semibold text-slate-300">
+            <span>🎮 Servers / Embeds:</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            ${game.servers.map(srv => `
+              <button
+                data-server-url="${srv.url}"
+                class="btn-switch-server px-3 py-1.5 text-xs rounded-lg border font-medium transition-colors ${
+                  currentUrl === srv.url
+                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50'
+                    : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
+                }"
+              >
+                ${srv.name}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+
       <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6">
+        <div class="flex items-center gap-2 text-xs text-slate-400 mb-1.5 font-medium">
+          <span class="text-cyan-400">${game.category}</span>
+          <span>·</span>
+          <span>${(game.plays || 0).toLocaleString()} plays</span>
+        </div>
         <h1 class="text-2xl font-bold text-white">${game.title}</h1>
-        <p class="text-sm text-slate-300 mt-2">${game.description}</p>
+        <p class="text-sm text-slate-300 mt-2 leading-relaxed">${game.description}</p>
+        ${game.instructions ? `
+          <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400">
+            <strong class="text-slate-300">How to play: </strong>${game.instructions}
+          </div>
+        ` : ''}
       </div>
     </div>
   `;
