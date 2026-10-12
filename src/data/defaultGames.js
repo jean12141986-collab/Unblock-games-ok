@@ -1,0 +1,199 @@
+import heroBanner from '../assets/images/arcade_hero_banner_1791844346359.jpg';
+import retroRunner from '../assets/images/arcade_retro_runner_1791844347059.jpg';
+import pixelSpace from '../assets/images/arcade_pixel_space_1791844348057.jpg';
+import cyberPuzzle from '../assets/images/arcade_cyber_puzzle_1791844347103.jpg';
+
+export const DEFAULT_GAMES = [
+  {
+    id: 'neon-tetris',
+    title: 'Neon Tetris',
+    category: 'Puzzle',
+    description: 'Stack falling tetrominoes, clear lines, and pull off cascading line combos before the board fills up.',
+    iframeUrl: '/games/tetris.html',
+    thumbnail: cyberPuzzle,
+    accentColor: '#06b6d4',
+    instructions: 'Rotate and position falling blocks into solid horizontal rows. Clearing multiple rows triggers combo multipliers and level advancement.',
+    controls: [
+      { key: '← / →', action: 'Shift Left / Right' },
+      { key: '↑', action: 'Rotate Tetromino' },
+      { key: '↓', action: 'Soft Drop' },
+      { key: 'Space', action: 'Hard Drop (Instant)' },
+      { key: 'C / Shift', action: 'Hold Piece' },
+      { key: 'P', action: 'Pause Game' }
+    ],
+    rating: 4.9,
+    plays: 48200,
+    tags: ['Blocks', 'Retro', 'Combos', 'Classic'],
+    featured: true
+  },
+  {
+    id: 'cyber-flappy',
+    title: 'Cyber Flappy',
+    category: 'Arcade',
+    description: 'Pilot your neon drone through treacherous energy pillars in this high-intensity reflex challenge.',
+    iframeUrl: '/games/flappy.html',
+    thumbnail: retroRunner,
+    accentColor: '#10b981',
+    instructions: 'Tap or press Space to pulse your thrusters. Precise timing and steady rhythm are required to navigate the narrow gaps.',
+    controls: [
+      { key: 'Space', action: 'Pulse Thruster / Flap' },
+      { key: 'Left Click', action: 'Pulse Thruster / Flap' },
+      { key: 'Touch', action: 'Tap to Fly' }
+    ],
+    rating: 4.8,
+    plays: 62400,
+    tags: ['Endless', 'Arcade', 'One-Button', 'Skill'],
+    featured: true
+  },
+  {
+    id: 'retro-snake',
+    title: 'Retro Snake',
+    category: 'Classic',
+    description: 'Slither through the cyber grid consuming energy orbs and gold cores without biting your own tail.',
+    iframeUrl: '/games/snake.html',
+    thumbnail: heroBanner,
+    accentColor: '#22c55e',
+    instructions: 'Guide the snake toward red power nodes. Collect glowing yellow super-nodes before they vanish for massive bonus points.',
+    controls: [
+      { key: 'Arrow Keys', action: 'Turn Snake' },
+      { key: 'W / A / S / D', action: 'Alternative Steering' },
+      { key: 'Space', action: 'Restart Run' }
+    ],
+    rating: 4.9,
+    plays: 39100,
+    tags: ['Grid', 'Snake', 'Nostalgia', 'Retro'],
+    featured: false
+  },
+  {
+    id: 'cyber-2048',
+    title: 'Cyber 2048',
+    category: 'Puzzle',
+    description: 'Slide and merge equivalent numbered tiles across the 4x4 matrix to unlock the fabled 2048 neon block.',
+    iframeUrl: '/games/2048.html',
+    thumbnail: cyberPuzzle,
+    accentColor: '#ec4899',
+    instructions: 'Slide in four directions to shift all tiles. Matching tiles collapse into their sum. Plan ahead to avoid grid lockups.',
+    controls: [
+      { key: 'Arrow Keys', action: 'Slide Tiles' },
+      { key: 'Swipe', action: 'Mobile Gesture Slide' },
+      { key: 'Undo Button', action: 'Revert Last Move' }
+    ],
+    rating: 4.9,
+    plays: 54300,
+    tags: ['Math', 'Strategy', 'Brain', 'Puzzle'],
+    featured: true
+  },
+  {
+    id: 'galaxy-invaders',
+    title: 'Galaxy Invaders',
+    category: 'Action',
+    description: 'Defend the sector against descending alien armadas, dodge plasma bombs, and wipe out enemy fleets.',
+    iframeUrl: '/games/space-invaders.html',
+    thumbnail: pixelSpace,
+    accentColor: '#38bdf8',
+    instructions: 'Maneuver your starfighter horizontally and fire dual lasers. Clear all invaders in each wave to advance to faster sectors.',
+    controls: [
+      { key: '← / →', action: 'Move Starfighter' },
+      { key: 'A / D', action: 'Alternative Move' },
+      { key: 'Space', action: 'Fire Laser Blaster' }
+    ],
+    rating: 4.7,
+    plays: 31800,
+    tags: ['Shooter', 'Retro', 'Space', 'Arcade'],
+    featured: true
+  },
+  {
+    id: 'cyber-pong',
+    title: 'Cyber Pong',
+    category: 'Arcade',
+    description: 'High-velocity table tennis showdown. Compete head-to-head against intelligent bot AI or a friend.',
+    iframeUrl: '/games/pong.html',
+    thumbnail: heroBanner,
+    accentColor: '#0ea5e9',
+    instructions: 'Deflect the ball past your opponent paddle. Angle your hits using paddle edges for deceptive spin and extreme speed. First to 7 wins.',
+    controls: [
+      { key: 'Mouse / W, S', action: 'Player 1 Paddle' },
+      { key: '↑ / ↓', action: 'Player 2 Paddle' },
+      { key: 'Mode Toggle', action: 'Switch 1P vs 2P' }
+    ],
+    rating: 4.6,
+    plays: 22400,
+    tags: ['2 Player', 'Arcade', 'Table Tennis', 'Versus'],
+    featured: false
+  },
+  {
+    id: 'neon-breakout',
+    title: 'Neon Breakout',
+    category: 'Arcade',
+    description: 'Smash multi-tiered neon energy bricks with precision ball rebounds and paddle trajectory control.',
+    iframeUrl: '/games/breakout.html',
+    thumbnail: retroRunner,
+    accentColor: '#f43f5e',
+    instructions: 'Keep the ball airborne by steering your paddle. Destroy all bricks to achieve board clear bonus points.',
+    controls: [
+      { key: 'Mouse Move', action: 'Move Paddle' },
+      { key: '← / →', action: 'Move Paddle' },
+      { key: 'Space / Click', action: 'Launch Ball' }
+    ],
+    rating: 4.7,
+    plays: 28900,
+    tags: ['Brick Breaker', 'Retro', 'Paddle', 'Arcade'],
+    featured: false
+  },
+  {
+    id: 'cyber-runner',
+    title: 'Cyber Runner',
+    category: 'Casual',
+    description: 'Speed across digital badlands, vaulting over spiky barriers and ducking under airborne drones.',
+    iframeUrl: '/games/dino.html',
+    thumbnail: retroRunner,
+    accentColor: '#06b6d4',
+    instructions: 'Jump over ground cacti and duck under incoming flying hazards. Game velocity escalates steadily over time.',
+    controls: [
+      { key: 'Space / ↑', action: 'Jump' },
+      { key: '↓', action: 'Duck / Crouch' },
+      { key: 'Click', action: 'Jump' }
+    ],
+    rating: 4.8,
+    plays: 44100,
+    tags: ['Runner', 'Dino', 'Endless', 'Speed'],
+    featured: false
+  },
+  {
+    id: 'cyber-sweeper',
+    title: 'Cyber Sweeper',
+    category: 'Puzzle',
+    description: 'Logic-based tactical mine clearance. Use proximity numerical clues to disarm hidden explosives.',
+    iframeUrl: '/games/minesweeper.html',
+    thumbnail: cyberPuzzle,
+    accentColor: '#f59e0b',
+    instructions: 'Left-click uncovers cells. Numbers reveal adjacent mine counts. Right-click flags suspected mines. Clear all safe cells to win.',
+    controls: [
+      { key: 'Left Click', action: 'Reveal Sector' },
+      { key: 'Right Click', action: 'Flag Mine' },
+      { key: 'Smiley Click', action: 'New Board' }
+    ],
+    rating: 4.6,
+    plays: 19500,
+    tags: ['Logic', 'Mines', 'Brain', 'Classic'],
+    featured: false
+  },
+  {
+    id: 'cyber-connect-4',
+    title: 'Cyber 4 in a Row',
+    category: 'Strategy',
+    description: 'Drop discs into vertical columns to form an uninterrupted line of four colored tokens before your rival.',
+    iframeUrl: '/games/connect4.html',
+    thumbnail: heroBanner,
+    accentColor: '#38bdf8',
+    instructions: 'Click any column to drop your chip. Connect 4 horizontally, vertically, or diagonally. Choose between AI solo play or 2P couch play.',
+    controls: [
+      { key: 'Click Column', action: 'Drop Disc' },
+      { key: 'Mode Button', action: '1P AI vs 2P Pass & Play' }
+    ],
+    rating: 4.8,
+    plays: 26700,
+    tags: ['Board', 'Connect 4', 'Strategy', 'Versus'],
+    featured: false
+  }
+];
