@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Ultraviolet Web Proxy",
+    "type": "UV Stealth",
+    "description": "High performance unblocking proxy for bypassing school web filters and firewalls.",
+    "url": "https://uv.student-portal.site/",
+    "speed": "Fast",
+    "status": "Online"
+  },
+  {
+    "name": "Rammerhead Browser",
+    "type": "Remote Browser",
+    "description": "Fast session-based sandbox browser supporting WebSockets, YouTube, and Discord.",
+    "url": "https://browser.rammerhead.org/",
+    "speed": "Ultra",
+    "status": "Online"
+  },
+  {
+    "name": "CroxyProxy Free",
+    "type": "Web Proxy",
+    "description": "Reliable SSL web proxy service for video streaming and unblocked browsing.",
+    "url": "https://www.croxyproxy.com/",
+    "speed": "Fast",
+    "status": "Online"
+  },
+  {
+    "name": "Nebula Network",
+    "type": "Node Proxy",
+    "description": "Clean, lightning fast stealth network designed for restricted school networks.",
+    "url": "https://nebula-network.org/",
+    "speed": "Fast",
+    "status": "Online"
+  },
+  {
+    "name": "Interstellar Mirror",
+    "type": "Static Mirror",
+    "description": "Modern unblocker mirror with tabs, cloaking, and built-in search engine.",
+    "url": "https://gointerstellar.app/",
+    "speed": "Ultra",
+    "status": "Online"
+  }
+]

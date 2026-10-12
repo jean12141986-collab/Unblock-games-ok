@@ -1,0 +1,248 @@
+[
+  {
+    "id": "movie-spiderman-spiderverse",
+    "title": "Spider-Man: Into the Spider-Verse",
+    "type": "movie",
+    "category": "Animation / Action",
+    "year": 2018,
+    "rating": 8.4,
+    "duration": "1h 57m",
+    "poster": "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+    "banner": "https://image.tmdb.org/t/p/original/uUiId6cG32JSRj6PPv119RFiJuOM.jpg",
+    "description": "Teen Miles Morales becomes the new Spider-Man and joins five other spider-heroes from alternate universes to stop a reality-shattering threat.",
+    "iframeUrl": "https://www.youtube-nocookie.com/embed/g4Hbz2jLxvQ",
+    "servers": [
+      { "name": "Server 1 (Trailer / Preview)", "url": "https://www.youtube-nocookie.com/embed/g4Hbz2jLxvQ" },
+      { "name": "Server 2 (VidSrc Stream)", "url": "https://vidsrc.to/embed/movie/324857" },
+      { "name": "Server 3 (SuperEmbed)", "url": "https://multiembed.mov/?video_id=324857&tmdb=1" }
+    ],
+    "featured": true
+  },
+  {
+    "id": "movie-interstellar",
+    "title": "Interstellar",
+    "type": "movie",
+    "category": "Sci-Fi / Drama",
+    "year": 2014,
+    "rating": 8.7,
+    "duration": "2h 49m",
+    "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    "banner": "https://image.tmdb.org/t/p/original/rAiYTsrpHRefjZ3H5Z5vjJb0Oq7.jpg",
+    "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival as Earth faces catastrophic famine.",
+    "iframeUrl": "https://www.youtube-nocookie.com/embed/zSWdZVtXT7E",
+    "servers": [
+      { "name": "Server 1 (Trailer / Preview)", "url": "https://www.youtube-nocookie.com/embed/zSWdZVtXT7E" },
+      { "name": "Server 2 (VidSrc Stream)", "url": "https://vidsrc.to/embed/movie/157336" },
+      { "name": "Server 3 (SuperEmbed)", "url": "https://multiembed.mov/?video_id=157336&tmdb=1" }
+    ],
+    "featured": true
+  },
+  {
+    "id": "movie-tears-of-steel",
+    "title": "Tears of Steel",
+    "type": "movie",
+    "category": "Sci-Fi / Open Cinema",
+    "year": 2012,
+    "rating": 7.3,
+    "duration": "12m",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Tears_of_Steel_poster.jpg/440px-Tears_of_Steel_poster.jpg",
+    "banner": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Tears_of_Steel_poster.jpg/440px-Tears_of_Steel_poster.jpg",
+    "description": "Set in a dystopian future Amsterdam, a group of scientists and warriors work to save the world from destructive robotic sentient beings.",
+    "iframeUrl": "https://archive.org/embed/Tears-of-Steel",
+    "servers": [
+      { "name": "Server 1 (Full HD Open Movie)", "url": "https://archive.org/embed/Tears-of-Steel" },
+      { "name": "Server 2 (YouTube Stream)", "url": "https://www.youtube-nocookie.com/embed/R6MlUcmOul8" }
+    ],
+    "featured": false
+  },
+  {
+    "id": "movie-big-buck-bunny",
+    "title": "Big Buck Bunny",
+    "type": "movie",
+    "category": "Animation / Comedy",
+    "year": 2008,
+    "rating": 7.8,
+    "duration": "10m",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/440px-Big_buck_bunny_poster_big.jpg",
+    "banner": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/440px-Big_buck_bunny_poster_big.jpg",
+    "description": "A large and gentle rabbit is harassed by mischievous forest rodents until he orchestrates a whimsical, ingenious retribution plan.",
+    "iframeUrl": "https://archive.org/embed/BigBuckBunny_124",
+    "servers": [
+      { "name": "Server 1 (Full 4K Open Stream)", "url": "https://archive.org/embed/BigBuckBunny_124" },
+      { "name": "Server 2 (YouTube Stream)", "url": "https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ" }
+    ],
+    "featured": false
+  },
+  {
+    "id": "movie-sintel",
+    "title": "Sintel: The Dragon Quest",
+    "type": "movie",
+    "category": "Fantasy / Adventure",
+    "year": 2010,
+    "rating": 7.7,
+    "duration": "15m",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sintel_poster.jpg/440px-Sintel_poster.jpg",
+    "banner": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sintel_poster.jpg/440px-Sintel_poster.jpg",
+    "description": "A lonely young woman nurses a wounded baby dragon back to health, embarking on a treacherous continent-spanning expedition when it is snatched.",
+    "iframeUrl": "https://archive.org/embed/Sintel",
+    "servers": [
+      { "name": "Server 1 (Full HD Open Movie)", "url": "https://archive.org/embed/Sintel" },
+      { "name": "Server 2 (YouTube Stream)", "url": "https://www.youtube-nocookie.com/embed/eRsGyueVLvQ" }
+    ],
+    "featured": false
+  },
+  {
+    "id": "movie-dark-knight",
+    "title": "The Dark Knight",
+    "type": "movie",
+    "category": "Action / Crime",
+    "year": 2008,
+    "rating": 9.0,
+    "duration": "2h 32m",
+    "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "banner": "https://image.tmdb.org/t/p/original/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",
+    "description": "When the menace known as the Joker wreaks havoc and chaos on Gotham City, Batman must accept one of the greatest psychological tests of his ability to fight injustice.",
+    "iframeUrl": "https://www.youtube-nocookie.com/embed/EXeTwQWrcwY",
+    "servers": [
+      { "name": "Server 1 (Trailer / Preview)", "url": "https://www.youtube-nocookie.com/embed/EXeTwQWrcwY" },
+      { "name": "Server 2 (VidSrc Stream)", "url": "https://vidsrc.to/embed/movie/155" },
+      { "name": "Server 3 (SuperEmbed)", "url": "https://multiembed.mov/?video_id=155&tmdb=1" }
+    ],
+    "featured": false
+  },
+  {
+    "id": "movie-night-living-dead",
+    "title": "Night of the Living Dead",
+    "type": "movie",
+    "category": "Horror / Classic",
+    "year": 1968,
+    "rating": 7.8,
+    "duration": "1h 36m",
+    "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Night_of_the_Living_Dead_%281968%29_poster.jpg/440px-Night_of_the_Living_Dead_%281968%29_poster.jpg",
+    "banner": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Night_of_the_Living_Dead_%281968%29_poster.jpg/440px-Night_of_the_Living_Dead_%281968%29_poster.jpg",
+    "description": "A disparate group of individuals take refuge in an abandoned farmhouse when corpses begin rising from their graves in search of human flesh.",
+    "iframeUrl": "https://archive.org/embed/night_of_the_living_dead",
+    "servers": [
+      { "name": "Server 1 (Archive Public Cinema)", "url": "https://archive.org/embed/night_of_the_living_dead" },
+      { "name": "Server 2 (YouTube Stream)", "url": "https://www.youtube-nocookie.com/embed/0QH9q9n9q1U" }
+    ],
+    "featured": false
+  },
+  {
+    "id": "tv-arcane",
+    "title": "Arcane: League of Legends",
+    "type": "tv",
+    "category": "Animation / Sci-Fi",
+    "year": 2021,
+    "rating": 9.0,
+    "duration": "9 Episodes",
+    "poster": "https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn397rDit3YR4.jpg",
+    "banner": "https://image.tmdb.org/t/p/original/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg",
+    "description": "Set in the utopian region of Piltover and the oppressed underground of Zaun, the story follows the origins of two iconic League champions-and the power that will tear them apart.",
+    "iframeUrl": "https://www.youtube-nocookie.com/embed/fXmAurh012s",
+    "episodes": [
+      { "season": 1, "episode": 1, "title": "Welcome to the Playground", "url": "https://vidsrc.to/embed/tv/94605/1/1" },
+      { "season": 1, "episode": 2, "title": "Some Mysteries Are Better Left Unsolved", "url": "https://vidsrc.to/embed/tv/94605/1/2" },
+      { "season": 1, "episode": 3, "title": "The Base Violence Necessary for Change", "url": "https://vidsrc.to/embed/tv/94605/1/3" },
+      { "season": 1, "episode": 4, "title": "Happy Progress Day!", "url": "https://vidsrc.to/embed/tv/94605/1/4" }
+    ],
+    "servers": [
+      { "name": "Server 1 (Official Preview)", "url": "https://www.youtube-nocookie.com/embed/fXmAurh012s" },
+      { "name": "Server 2 (VidSrc Stream)", "url": "https://vidsrc.to/embed/tv/94605" },
+      { "name": "Server 3 (SuperEmbed)", "url": "https://multiembed.mov/?video_id=94605&tmdb=1" }
+    ],
+    "featured": true
+  },
+  {
+    "id": "tv-adventure-time",
+    "title": "Adventure Time",
+    "type": "tv",
+    "category": "Animation / Adventure",
+    "year": 2010,
+    "rating": 8.6,
+    "duration": "10 Seasons",
+    "poster": "https://image.tmdb.org/t/p/w500/qk3eQjNsmF3Pj71d7dE54Jt8c3C.jpg",
+    "banner": "https://image.tmdb.org/t/p/original/suopoADq0k8YZr4dQXLi6N0mZAG.jpg",
+    "description": "A 12-year-old boy and his magical talking dog navigate the mystical and bizarre post-apocalyptic Land of Ooo.",
+    "iframeUrl": "https://www.youtube-nocookie.com/embed/Vpnm_J0n4eI",
+    "episodes": [
+      { "season": 1, "episode": 1, "title": "Slumber Party Panic", "url": "https://vidsrc.to/embed/tv/15260/1/1" },
+      { "season": 1, "episode": 2, "title": "Trouble in Lumpy Space", "url": "https://vidsrc.to/embed/tv/15260/1/2" },
+      { "season": 1, "episode": 3, "title": "Prisoners of Love", "url": "https://vidsrc.to/embed/tv/15260/1/3" }
+    ],
+    "servers": [
+      { "name": "Server 1 (Preview)", "url": "https://www.youtube-nocookie.com/embed/Vpnm_J0n4eI" },
+      { "name": "Server 2 (VidSrc Stream)", "url": "https://vidsrc.to/embed/tv/15260" }
+    ],
+    "featured": false
+  },
+  {
+    "id": "tv-batman-animated",
+    "title": "Batman: The Animated Series",
+    "type": "tv",
+    "category": "Action / Superhero",
+    "year": 1992,
+    "rating": 9.0,
+    "duration": "85 Episodes",
+    "poster": "https://image.tmdb.org/t/p/w500/lP97xY1HlE9k6b0U3KxGvG1K3P6.jpg",
+    "banner": "https://image.tmdb.org/t/p/original/j2b5y6P1t0b1K2Y6P1t0b1K2Y6.jpg",
+    "description": "The Dark Knight battles crime and an unforgettable rogue gallery in Gotham City with groundbreaking neo-noir art deco visuals.",
+    "iframeUrl": "https://www.youtube-nocookie.com/embed/rrmUk2YUm14",
+    "episodes": [
+      { "season": 1, "episode": 1, "title": "On Leather Wings", "url": "https://vidsrc.to/embed/tv/2098/1/1" },
+      { "season": 1, "episode": 2, "title": "Christmas with the Joker", "url": "https://vidsrc.to/embed/tv/2098/1/2" },
+      { "season": 1, "episode": 3, "title": "Nothing to Fear", "url": "https://vidsrc.to/embed/tv/2098/1/3" }
+    ],
+    "servers": [
+      { "name": "Server 1 (Theme & Preview)", "url": "https://www.youtube-nocookie.com/embed/rrmUk2YUm14" },
+      { "name": "Server 2 (VidSrc Stream)", "url": "https://vidsrc.to/embed/tv/2098" }
+    ],
+    "featured": false
+  },
+  {
+    "id": "anime-attack-on-titan",
+    "title": "Attack on Titan (Shingeki no Kyojin)",
+    "type": "anime",
+    "category": "Anime / Dark Fantasy",
+    "year": 2013,
+    "rating": 9.1,
+    "duration": "4 Seasons",
+    "poster": "https://image.tmdb.org/t/p/w500/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg",
+    "banner": "https://image.tmdb.org/t/p/original/7hfgK8HkKz5pG6P8j9b5P4q2p6Y.jpg",
+    "description": "After his hometown is destroyed and his mother is killed, young Eren Jaeger vows to cleanse the earth of the giant humanoid Titans.",
+    "iframeUrl": "https://www.youtube-nocookie.com/embed/MGRm4IzK1SQ",
+    "episodes": [
+      { "season": 1, "episode": 1, "title": "To You, in 2000 Years: The Fall of Shiganshina", "url": "https://vidsrc.to/embed/tv/1429/1/1" },
+      { "season": 1, "episode": 2, "title": "That Day: The Fall of Shiganshina, Part 2", "url": "https://vidsrc.to/embed/tv/1429/1/2" },
+      { "season": 1, "episode": 3, "title": "A Dim Light Amid Despair", "url": "https://vidsrc.to/embed/tv/1429/1/3" }
+    ],
+    "servers": [
+      { "name": "Server 1 (Trailer / Preview)", "url": "https://www.youtube-nocookie.com/embed/MGRm4IzK1SQ" },
+      { "name": "Server 2 (VidSrc Stream)", "url": "https://vidsrc.to/embed/tv/1429" }
+    ],
+    "featured": true
+  },
+  {
+    "id": "anime-demon-slayer",
+    "title": "Demon Slayer: Kimetsu no Yaiba",
+    "type": "anime",
+    "category": "Anime / Supernatural",
+    "year": 2019,
+    "rating": 8.7,
+    "duration": "4 Seasons",
+    "poster": "https://image.tmdb.org/t/p/w500/xUfRZu2mi8jH69hmVTuMwBRJwQI.jpg",
+    "banner": "https://image.tmdb.org/t/p/original/nTvM4mhqZlHIIVIOkQoc5qSn2Gv.jpg",
+    "description": "A family is attacked by demons and only two members survive - Tanjiro and his sister Nezuko, who is turning into a demon herself.",
+    "iframeUrl": "https://www.youtube-nocookie.com/embed/VQGCKyvzIM4",
+    "episodes": [
+      { "season": 1, "episode": 1, "title": "Cruelty", "url": "https://vidsrc.to/embed/tv/85937/1/1" },
+      { "season": 1, "episode": 2, "title": "Trainer Sakonji Urokodaki", "url": "https://vidsrc.to/embed/tv/85937/1/2" },
+      { "season": 1, "episode": 3, "title": "Sabito and Makomo", "url": "https://vidsrc.to/embed/tv/85937/1/3" }
+    ],
+    "servers": [
+      { "name": "Server 1 (Trailer / Preview)", "url": "https://www.youtube-nocookie.com/embed/VQGCKyvzIM4" },
+      { "name": "Server 2 (VidSrc Stream)", "url": "https://vidsrc.to/embed/tv/85937" }
+    ],
+    "featured": false
+  }
+]
